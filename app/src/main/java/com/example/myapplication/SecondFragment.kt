@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.flow.Simple
 import com.example.myapplication.databinding.FragmentSecondBinding
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import kotlin.system.measureTimeMillis
@@ -18,7 +20,9 @@ import kotlin.system.measureTimeMillis
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class SecondFragment : Fragment() {
-
+    companion object {
+        const val TAG = "SecondFragment"
+    }
     private var _binding: FragmentSecondBinding? = null
 
     // This property is only valid between onCreateView and
@@ -42,9 +46,12 @@ class SecondFragment : Fragment() {
 //            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
             runBlocking<Unit> {
                 val time = measureTimeMillis {
-                    Simple.buffering().collect { value ->
+                    Simple.buffering()
+                        .buffer()
+                        .collect { value ->
                         delay(300)
-                        binding.buttonSecond.text = value.toString()
+                            Log.i(TAG, "Value = $value")
+                            binding.textviewSecond.text = value.toString()
                     }
                 }
 
@@ -53,7 +60,7 @@ class SecondFragment : Fragment() {
                     text = "Collected in $time ms"
                 }
 
-                binding.buttonSecond.text = R.string.previous.toString()
+                //binding.buttonSecond.text = R.string.previous.toString()
             }
         }
     }
