@@ -6,6 +6,11 @@ package com.example.dsalg
  */
 class InnerSort {
     companion object {
+        /**
+         * 插入排序算法,
+         * 从第2位元素开始，依次把元素插入左侧已经排好队的序列中。
+         *
+         */
         fun <T : Comparable<T>> improveInsertSort(array: Array<T>) {
             for (i in 1 until array.size) {
                 val tmp = array[i]
@@ -15,6 +20,34 @@ class InnerSort {
                     j--
                 }
                 array[j + 1] = tmp
+            }
+        }
+
+        /**
+         * 冒泡排序算法
+         * 从左向右一次两两比较相邻元素，较大值交换到右边，直到已经排好的子队列。
+         */
+        fun <T : Comparable<T>> improveBubbleSort(array: Array<T>) {
+            val sz = array.size
+            for (i in 0 until sz) {
+                var swapped = false
+                for (j in 0 until sz - i - 1) {
+                    if (array[j] > array[j + 1]) {
+                        array[j] = array[j + 1].apply { array[j + 1] = array[j] }
+                        swapped = true
+                    }
+                }
+
+                if (!swapped) {
+                    break
+                }
+            }
+        }
+
+        fun <T : Comparable<T>> heapSort(array: Array<T>) {
+            val heap = MaxHeap(array)
+            for (i in array.size - 1 downTo 0) {
+                array[i] = heap.deleteMax()
             }
         }
     }

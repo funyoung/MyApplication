@@ -16,6 +16,18 @@ class InnerSortTest {
     @Test
     fun improveInsertSort_correct() {
         InnerSort.improveInsertSort(data)
-        assertEquals(result, data)
+        assertArrayEquals(result, this.data)
+    }
+
+    @Test
+    fun improveBubbleSort_correct() {
+        InnerSort.improveBubbleSort(data)
+        assertArrayEquals(result, data)
+    }
+
+    @Test
+    fun heapSort_correct() {
+        InnerSort.heapSort(data)
+        assertArrayEquals(result, data)
     }
 }
