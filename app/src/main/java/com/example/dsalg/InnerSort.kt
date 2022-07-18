@@ -4,7 +4,7 @@ package com.example.dsalg
  * 8.2.1 Insert sort
  *
  */
-class InsertSort {
+class InnerSort {
     companion object {
         fun <T : Comparable<T>> improveInsertSort(array: Array<T>) {
             for (i in 1 until array.size) {
