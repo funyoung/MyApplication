@@ -30,4 +30,10 @@ class InnerSortTest {
         InnerSort.heapSort(data)
         assertArrayEquals(result, data)
     }
+
+    @Test
+    fun swapInsertSort_correct() {
+        InnerSort.swapInsertSort(data)
+        assertArrayEquals(result, data)
+    }
 }

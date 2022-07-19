@@ -7,7 +7,7 @@ package com.example.dsalg
 class InnerSort {
     companion object {
         /**
-         * 插入排序算法,
+         * 插入排序算法, 比较移动版
          * 从第2位元素开始，依次把元素插入左侧已经排好队的序列中。
          *
          */
@@ -15,11 +15,28 @@ class InnerSort {
             for (i in 1 until array.size) {
                 val tmp = array[i]
                 var j = i - 1
-                while (j >=0 && tmp < array[j]) {
+                while (j >= 0 && tmp < array[j]) {
                     array[j + 1] = array[j]
                     j--
                 }
                 array[j + 1] = tmp
+            }
+        }
+
+        /**
+         * 插入排序，逆序交换版
+         *
+         */
+        fun <T : Comparable<T>> swapInsertSort(array: Array<T>) {
+            for (i in 1 until array.size) {
+                for (j in i - 1 downTo 0) {
+                    if (array[j] > array[j + 1]) {
+                        // swap j and j + 1 element in the array
+                        array[j] = array[j + 1].also { array[j + 1] = array[j] }
+                    } else {
+                        break
+                    }
+                }
             }
         }
 
