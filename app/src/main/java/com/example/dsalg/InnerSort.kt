@@ -24,6 +24,24 @@ class InnerSort {
         }
 
         /**
+         * 插入排序算法，比较移动版，插入迭代循环起止索引变化
+         */
+        fun <T: Comparable<T>> improveInsertSortOpt(array: Array<T>) {
+            for (i in 1 until array.size) {
+                var j = i
+                // 已排子序列[0, j]调整有序，最右侧元素a[j]需要往前检测调整插入
+                val tmp = array[j]
+                // j左边元素比目标元素值大则移动，否则内层循环迭代完成，把目标元素值保存到位置j
+                while (j > 0 && tmp < array[j - 1]) {
+                    array[j] = array[j - 1]
+                    j--
+                }
+                array[j] = tmp
+            }
+        }
+
+        /**
+         * 插入排序算法，比较移动版，已排子序列在右侧
          * 已排子序列[n-1, n-1]，待排子序列[0, n-2]，每次循环从[n-2, 0], 插入右侧已排子序列[i, n-1]
          */
         fun <T : Comparable<T>> improveInsertSortRight(array: Array<T>) {

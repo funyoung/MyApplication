@@ -42,4 +42,11 @@ class InnerSortTest {
         InnerSort.improveInsertSortRight(data)
         assertArrayEquals(result, data)
     }
+
+    @Test
+    fun improveInsertSortOpt_correct() {
+        InnerSort.improveInsertSortOpt(data)
+        assertArrayEquals(result, data)
+    }
+
 }
