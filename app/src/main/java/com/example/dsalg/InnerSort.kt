@@ -24,6 +24,25 @@ class InnerSort {
         }
 
         /**
+         * 已排子序列[n-1, n-1]，待排子序列[0, n-2]，每次循环从[n-2, 0], 插入右侧已排子序列[i, n-1]
+         */
+        fun <T : Comparable<T>> improveInsertSortRight(array: Array<T>) {
+            for (i in array.size - 2 downTo 0) {
+                var j = i
+                val tmp = array[j]
+                while (j < array.size - 1) {
+                    if (array[j + 1] < tmp) {
+                        array[j] = array[j + 1]
+                        j++
+                    } else {
+                        break
+                    }
+                }
+                array[j] = tmp
+            }
+        }
+
+        /**
          * 插入排序，逆序交换版
          *
          */
