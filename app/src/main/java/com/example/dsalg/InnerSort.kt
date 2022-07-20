@@ -117,6 +117,26 @@ class InnerSort {
         }
 
         /**
+         * 增量除2递减，每一轮都重复上一轮已经排过序的子序列，低效。Hibbard增量序列提高互质性，排序效率更高
+         * 2^k-1, 2^(k-1)-1, ..., 7, 3, 1}
+         */
+        fun <T : Comparable<T>> hibbardShellSort(array: Array<T>) {
+            var delta = 1
+            var n = array.size
+            while (n > 0) {
+                delta *= 2
+                n /= 2
+            }
+
+            while (delta > 1) {
+                for (i in 0 until delta) {
+                    modInsertSort(array, i, delta - 1)
+                }
+                delta /= 2
+            }
+        }
+
+        /**
          * 冒泡排序算法
          * 从左向右一次两两比较相邻元素，较大值交换到右边，直到已经排好的子队列。
          */

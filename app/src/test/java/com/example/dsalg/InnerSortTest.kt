@@ -54,4 +54,10 @@ class InnerSortTest {
         InnerSort.shellSort(data)
         assertArrayEquals(result, data)
     }
+
+    @Test
+    fun hibbardShellSort_correct() {
+        InnerSort.hibbardShellSort(data)
+        assertArrayEquals(result, data)
+    }
 }
