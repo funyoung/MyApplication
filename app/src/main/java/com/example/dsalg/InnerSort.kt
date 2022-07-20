@@ -78,6 +78,45 @@ class InnerSort {
         }
 
         /**
+         * 数组array的第i个元素右侧间隔step个元素的子序列排序, i, i + step, i + 2step, ...(<n)
+         * 待排子序列显示小序列，位置i的首元素在已排子子序列，右侧+n*step为待排子子序列
+         */
+        private fun <T : Comparable<T>> modInsertSort(array: Array<T>, start: Int, delta: Int) {
+            var i = start + delta
+            while (i < array.size) {
+                for (j in i downTo start + delta) {
+                    if (array[j] < array[j - delta]) {
+                        // swap elements in the array
+                        array[j] = array[j - delta].also { array[j - delta] = array[j] }
+                    } else {
+                        break
+                    }
+                }
+
+                i += delta
+            }
+        }
+
+        /**
+         * Shell排序，插入排序在待排序列已经正序时，仅需要O(n)的时间复杂度和O(1)的空间复杂度，另一方面，待排序列较小时，
+         * 插入排序的效率尚可。因此Shell先用插入排若干个小序列，然后小序列逐渐变大（同时更接近有序）。关键在于产生序列
+         * 互质性，否则原序列中元素被重复多次挪动插入，性能更差
+         */
+        fun <T : Comparable<T>> shellSort(array: Array<T>) {
+            var delta = array.size / 2
+            while (delta > 0) {
+                for (j in 0 until delta) {
+                    modInsertSort(array, j,  delta)
+                }
+                delta /= 2
+            }
+
+            if (delta > 0) {
+                modInsertSort(array, 0, 1)
+            }
+        }
+
+        /**
          * 冒泡排序算法
          * 从左向右一次两两比较相邻元素，较大值交换到右边，直到已经排好的子队列。
          */

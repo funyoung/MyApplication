@@ -49,4 +49,9 @@ class InnerSortTest {
         assertArrayEquals(result, data)
     }
 
+    @Test
+    fun shellSort_correct() {
+        InnerSort.shellSort(data)
+        assertArrayEquals(result, data)
+    }
 }
