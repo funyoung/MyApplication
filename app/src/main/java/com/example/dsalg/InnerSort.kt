@@ -137,6 +137,36 @@ class InnerSort {
         }
 
         /**
+         * 直接选择排序，一次从待排序列中选出最小元素，次小元素交换到左一，二，...N位置
+         */
+        fun <T : Comparable<T>> selectSort(array: Array<T>) {
+            for (i in array.indices) {
+                var smallest = i
+                for (j in i + 1 until array.size) {
+                    if (array[j] < array[smallest]) {
+                        smallest = j
+                    }
+                }
+                if (smallest != i) {
+                    // swap element in smallest and i, not stable
+                    // todo: to make the sorting stable, move [i, smallest) to right 1,
+                    // and then store origin array[smallest] to array[i]
+                    array[i] = array[smallest].also { array[smallest] = array[i] }
+                }
+            }
+        }
+
+        /**
+         * 堆排序
+         */
+        fun <T : Comparable<T>> heapSort(array: Array<T>) {
+            val heap = MaxHeap(array)
+            for (i in array.size - 1 downTo 0) {
+                array[i] = heap.deleteMax()
+            }
+        }
+
+        /**
          * 冒泡排序算法
          * 从左向右一次两两比较相邻元素，较大值交换到右边，直到已经排好的子队列。
          */
@@ -157,11 +187,46 @@ class InnerSort {
             }
         }
 
-        fun <T : Comparable<T>> heapSort(array: Array<T>) {
-            val heap = MaxHeap(array)
-            for (i in array.size - 1 downTo 0) {
-                array[i] = heap.deleteMax()
+        /**
+         * 快速排序
+         */
+        fun <T: Comparable<T>> quickSort(array: Array<T>) {
+            quickSort(array, 0, array.size - 1)
+        }
+
+        private fun <T: Comparable<T>> quickSort(array: Array<T>, l: Int, r: Int) {
+            if (l < r) {
+                val m = l + (r - l) / 2
+                // swap element with index pivot and r
+                array[m] = array[r].also { array[r] = array[m] }
+                val pivot = partition(array, l, r)
+                quickSort(array, l, pivot - 1)
+                quickSort(array, pivot + 1, r)
             }
+        }
+
+        private fun <T: Comparable<T>> partition(array: Array<T>, l: Int, r: Int) : Int {
+            var i = l
+            var j = r
+            val pv = array[r]
+            while (i != j) {
+                while (array[i] <= pv && i < j) {
+                    i++
+                }
+                if (i < j) {
+                    array[j--] = array[i]
+                }
+
+                while (array[j] > pv && j > i) {
+                    j--
+                }
+                if (j > i) {
+                    array[i++] = array[j]
+                }
+            }
+
+            array[i] = pv
+            return i
         }
     }
 }

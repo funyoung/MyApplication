@@ -60,4 +60,16 @@ class InnerSortTest {
         InnerSort.hibbardShellSort(data)
         assertArrayEquals(result, data)
     }
+
+    @Test
+    fun selectSort_correct() {
+        InnerSort.selectSort(data)
+        assertArrayEquals(result, data)
+    }
+
+    @Test
+    fun quickSort_correct() {
+        InnerSort.quickSort(data)
+        assertArrayEquals(result, data)
+    }
 }
