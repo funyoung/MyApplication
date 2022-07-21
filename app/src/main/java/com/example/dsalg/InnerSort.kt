@@ -228,5 +228,53 @@ class InnerSort {
             array[i] = pv
             return i
         }
+
+        /**
+         * 归并排序 -- 2路归并
+         */
+        fun <T: Comparable<T>> mergeSort(array: Array<T>) {
+            val tmp = array.copyOf()
+            mergeSort(array, tmp, 0, array.lastIndex)
+        }
+        fun <T: Comparable<T>> mergeSort(array: Array<T>, tmp: Array<T>, left: Int, right: Int) {
+            if (left < right) {
+                val middle = left + (right - left) / 2
+                mergeSort(array, tmp, left, middle)
+                mergeSort(array, tmp, middle + 1, right)
+                merge(array, tmp, left, right, middle)
+            }
+        }
+
+        /**
+         * merge tmp [left, right] back to array [left, right], i, j 分别在tmp的[left, middle]和[middle + 1, right]
+         * 比较，较小的元素值写回array[k++], 最后剩余tmp[i, middle]或tmp[j, right]之一继续写回array[k++]
+         * TODO: R.Sedgewick 优化, 从两端向中间开始归并，简化边界判断
+         */
+        fun <T: Comparable<T>> merge(array: Array<T>, tmp: Array<T>, left: Int, right: Int, middle: Int) {
+            for (k in left..right) {
+                tmp[k] = array[k]
+            }
+
+            var i = left
+            var j = middle + 1
+            var k = left
+
+            // 比较tmp[i]和tmp[j]中较小的值写回array
+            while (i <= middle && j <= right) {
+                if (tmp[i] <= tmp[j]) {
+                    array[k++] = tmp[i++]
+                } else {
+                    array[k++] = tmp[j++]
+                }
+            }
+
+            // tmp[i, middle]或者tmp[j, right]写回array剩余位置
+            while (i <= middle) {
+                array[k++] = tmp[i++]
+            }
+            while (j <= right) {
+                array[k++] = tmp[j++]
+            }
+        }
     }
 }

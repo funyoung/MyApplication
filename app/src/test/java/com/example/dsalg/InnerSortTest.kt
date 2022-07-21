@@ -72,4 +72,10 @@ class InnerSortTest {
         InnerSort.quickSort(data)
         assertArrayEquals(result, data)
     }
+
+    @Test
+    fun mergeSort_correct() {
+        InnerSort.mergeSort(data)
+        assertArrayEquals(result, data)
+    }
 }
