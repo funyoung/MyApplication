@@ -276,5 +276,26 @@ class InnerSort {
                 array[k++] = tmp[j++]
             }
         }
+
+        /**
+         * 8.6.1 桶式排序
+         * n元数组元素的值在m之内，分配m个数据桶，1. 分别统计数组中值等于桶索引下标的个数，2. 然后每个桶累计之前所有
+         * 桶（包含该桶本身）元素个数之和，3. 最后从数组右向左遍历，逐个放入它的目标位置（需要开辟临时辅助数组拷贝），
+         * 数组元素值为索引取出桶的元素值为该元素以及不大于它的所有元素个数，桶内只减减一后，桶的数值为元素在目标数组的索引
+         */
+        fun bucketSort(array: IntArray, m: Int) {
+            val count = IntArray(m) { 0 }
+            for (i in array.indices) {
+                count[array[i]]++
+            }
+            for (i in 1..count.lastIndex) {
+                count[i] += count[i - 1]
+            }
+
+            val t = IntArray(array.size) { array[it] }
+            for (i in t.lastIndex downTo 0) {
+                array[--count[t[i]]] = t[i]
+            }
+        }
     }
 }

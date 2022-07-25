@@ -78,4 +78,12 @@ class InnerSortTest {
         InnerSort.mergeSort(data)
         assertArrayEquals(result, data)
     }
+
+    @Test
+    fun bucketSort_correct() {
+        val array = intArrayOf(7, 3, 8, 9, 6, 1, 8, 1, 2)
+        val expected = intArrayOf(1, 1, 2, 3, 6, 7, 8, 8, 9)
+        InnerSort.bucketSort(array, 10)
+        assertArrayEquals(expected, array)
+    }
 }
