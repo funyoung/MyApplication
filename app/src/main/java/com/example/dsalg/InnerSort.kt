@@ -228,5 +228,43 @@ class InnerSort {
             array[i] = pv
             return i
         }
+
+        /**
+         * 8.6.2 基数排序，桶式排序对排序码范围很大时，可以把排序码分解成若干个组成部分（如扑克牌的花色*点数，一个自然数
+         * 的个十百千...位等等）有MSD高位优先和LSD低位优先两种。存储方式有基于顺序存储和基于链式存储两种。
+         */
+        fun lsdRadixSort(array: IntArray, d: Int, r: Int) {
+            val t = IntArray(array.size) { array[it] }
+            val c = IntArray(r) { 0 }
+            var radix = 1
+            for (i in 1..d) {
+                for (j in array.indices) {
+                    t[i] = array[i]
+                }
+                for (j in c.indices) {
+                    c[j] = 0
+                }
+
+                for (j in array) {
+                    val k = (j / radix) % r
+                    c[k]++
+                }
+                for (j in 1..c.lastIndex) {
+                    c[j] += c[j - 1]
+                }
+
+                for (j in t.lastIndex downTo 0) {
+                    val k = (t[j] / radix) % r
+                    array[--c[k]] = t[j]
+                }
+
+                // 同步array到t
+                for (j in array.indices) {
+                    t[j] = array[j]
+                }
+
+                radix *= r
+            }
+        }
     }
 }
