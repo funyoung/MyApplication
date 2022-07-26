@@ -8,6 +8,9 @@ class InnerSortTest {
     private val result = arrayOf(12, 29, 32, 34, 34, 45, 64, 78)
     private val data = arrayOf(45, 34, 78, 12, 34, 32, 29, 64)
 
+    private val radixArray = intArrayOf(97, 53, 88, 59, 26, 41, 88, 31, 22)
+    private val radixExpected = intArrayOf(22, 26, 31, 41, 53, 59, 88, 88, 97)
+
     @Before
     fun setup() {
         data.shuffle()
@@ -89,9 +92,13 @@ class InnerSortTest {
 
     @Test
     fun lsdRadixSort_correct() {
-        val array = intArrayOf(97, 53, 88, 59, 26, 41, 88, 31, 22)
-        val expected = intArrayOf(22, 26, 31, 41, 53, 59, 88, 88, 97)
-        InnerSort.lsdRadixSort(array, 2, 10)
-        assertArrayEquals(expected, array)
+        InnerSort.lsdRadixSort(radixArray, 2, 10)
+        assertArrayEquals(radixExpected, radixArray)
+    }
+
+    @Test
+    fun lsdRadixSortLink_correct() {
+        InnerSort.lsdRadixLinkSort(radixArray, 2, 10)
+        assertArrayEquals(radixExpected, radixArray)
     }
 }
