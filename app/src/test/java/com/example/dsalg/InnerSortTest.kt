@@ -86,4 +86,12 @@ class InnerSortTest {
         InnerSort.bucketSort(array, 10)
         assertArrayEquals(expected, array)
     }
+
+    @Test
+    fun lsdRadixSort_correct() {
+        val array = intArrayOf(97, 53, 88, 59, 26, 41, 88, 31, 22)
+        val expected = intArrayOf(22, 26, 31, 41, 53, 59, 88, 88, 97)
+        InnerSort.lsdRadixSort(array, 2, 10)
+        assertArrayEquals(expected, array)
+    }
 }
