@@ -22,6 +22,8 @@ class IndexSort {
                 }
                 index[j + 1] = i
             }
+
+            // TODO: 原地移动原数组array(不用辅助数组O(n)的空间代价)
             val t = Array(array.size) { array[index[it]] }
             for (i in t.indices) {
                 array[i] = t[i]
